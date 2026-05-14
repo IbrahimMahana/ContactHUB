@@ -6,14 +6,7 @@ a{
 }
 body {
     background-color: rgb(248, 250, 252);
-    overflow-y: scroll;
-
-}
-html {
-    scrollbar-gutter: stable;
-}
-html, body {
-    overflow-y: hidden;
+    /* overflow-y: scroll; */
 }
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
@@ -22,7 +15,6 @@ body::-webkit-scrollbar {
 *{
     font-family: "Inter", sans-serif;
 }
-
 .bg-body-tertiary {
     background-color: #fdfdfe !important;
 }

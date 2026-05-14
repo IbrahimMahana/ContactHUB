@@ -39,7 +39,7 @@ if (localStorage.getItem("contact") != null) {
 }
 function addContact() {
 
-    // =====  Check Duplicate Phone =====
+    // =====  Check Duplicate Phone ===== //
     if(isDuplicatePhone()){
         Swal.fire({
             title: "Error!",
@@ -60,7 +60,7 @@ function addContact() {
     }
 
 	var contact = {
-		Image: "images/" + profileImageInput.files[0]?.name,
+		Image: profileImageInput.files[0] ? "images/" + profileImageInput.files[0].name : "",
 		nameUser: fullNameInput.value,
 		phoneUser: PhoneNumberInput.value,
 		emailUser: EmailInput.value,
@@ -86,6 +86,7 @@ function addContact() {
 }
 
 function clearForm(){
+    profileImageInput.value = null;
     fullNameInput.value = null;
     PhoneNumberInput.value = null; 
     EmailInput.value = null; 
@@ -180,8 +181,9 @@ function displayContact(arr) {
             <div class="d-flex column-gap-3 align-items-center">
                 <div class="position-relative">
                 
-                    <div class="default-avatar contact-avatar d-flex align-items-center justify-content-center fw-bolder rounded-4 text-white overflow-hidden object-fit-cover">
-                        ${getInitials(arr[index].nameUser)}
+                   <div class="default-avatar contact-avatar d-flex justify-content-center align-items-center fw-bold text-white overflow-hidden rounded-4">
+                        ${arr[index].Image != ""?
+                        `<img src="${arr[index].Image}" class="w-100 h-100 object-fit-cover">`: getInitials(arr[index].nameUser)}
                     </div>
                     ${favoriteBadge}    
 
@@ -221,14 +223,16 @@ function displayContact(arr) {
             </div>
 
             <div class="mt-2 d-flex gap-2 align-items-center">
-
-                <div class="location-icon d-flex align-items-center justify-content-center rounded-3">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
+                ${arr[index].addressUser?`
+                <div class="d-flex align-items-center gap-2 mt-0">
+                    <div class="location-icon d-flex justify-content-center align-items-center rounded-circle">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
 
                 <span class="text-secondary-muted">
                     ${arr[index].addressUser}
                 </span>
+                </div>`:""}
 
                 </div>
                 <div class="mt-2 d-flex">
@@ -288,16 +292,17 @@ function displayContact(arr) {
 }
 // ============= Delete ============ //
 function deleteContact(indexDeleteContact){
-    console.log(indexDeleteContact)
+    // console.log(indexDeleteContact)
     
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "Delete Contact?",
+        text: "Are you sure you want to delete ibrahim? This action cannot be undone.",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#606773",
         confirmButtonText: "Yes, delete it!",
+        scrollbarPadding: false,
     }).then((result) => {
         if (result.isConfirmed) {
             // Delete Contact
@@ -309,7 +314,8 @@ function deleteContact(indexDeleteContact){
             Swal.fire({ 
                 title: "Deleted!",
                 text: "Your file has been deleted.",
-                icon: "success" 
+                icon: "success",
+                scrollbarPadding: false,
             });
         
         }
@@ -319,6 +325,7 @@ function deleteContact(indexDeleteContact){
 function setFormContact(indexBeforeUpdate){
     indexAfterUpdate = indexBeforeUpdate;
 
+    // profileImageInput.value = contactUser[indexBeforeUpdate].Image;
     fullNameInput.value = contactUser[indexBeforeUpdate].nameUser;
     PhoneNumberInput.value = contactUser[indexBeforeUpdate].phoneUser;
     EmailInput.value = contactUser[indexBeforeUpdate].emailUser;
@@ -354,6 +361,7 @@ function updateContact(){
         return;
     }
 
+    // contactUser[indexAfterUpdate].Image = profileImageInput.value;
     contactUser[indexAfterUpdate].nameUser = fullNameInput.value;
     contactUser[indexAfterUpdate].phoneUser = PhoneNumberInput.value;
     contactUser[indexAfterUpdate].emailUser = EmailInput.value;
