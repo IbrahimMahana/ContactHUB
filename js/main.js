@@ -117,10 +117,23 @@ function getInitials(fullNameInput){
     }
 }
 function displayContact(arr) {
-    
+
 	var box = ``;
+    // No Dta Show //
+    if(arr.length == 0){
+        box = `
+        <div class="text-center emptyStateWrapper">
+            <div class="d-flex emptyStateIcon align-items-center justify-content-center m-auto mb-3">
+                <i class="fa-solid fa-address-book"></i>
+            </div>
+            <p class="m-0 fw-bold text-secondary-muted">No contacts found</p>
+            <p class="m-0 text-secondary-muted">Click "Add Contact" to get started</p>
+        </div>`;
+    }
+
+    // Box --> Data Show
 	for (var index = 0; index < arr.length; index++) {
-    // groupBadge
+    // groupBadge  Switch Case // 
     var groupBadge = "";
     switch(arr[index].group){
         case "family":
@@ -169,11 +182,13 @@ function displayContact(arr) {
         }
         // Count Emergency Icon in UI
         var emergencyIcon;
+
         if(arr[index].isEmergency == true){
 			emergencyIcon =`<i class="fa-solid fa-heart-pulse text-danger"></i>`;
 		}else{
 			emergencyIcon = `<i class="fa-regular fa-heart text-secondary-muted"></i>`;
 		}
+       
 		box += `
         <div class="col-md-6">
         <div class="d-flex flex-column contact-card overflow-hidden">
