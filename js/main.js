@@ -311,7 +311,7 @@ function deleteContact(indexDeleteContact){
     
     Swal.fire({
         title: "Delete Contact?",
-        text: "Are you sure you want to delete ibrahim? This action cannot be undone.",
+        text: `Are you sure you want to delete ${contactUser[indexDeleteContact].nameUser}? This action cannot be undone.`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
